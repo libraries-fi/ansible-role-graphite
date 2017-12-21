@@ -1,0 +1,30 @@
+- name: Install Graphite
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - graphite-web
+    - graphite-carbon
+
+- name: Copy virtualhost config
+  template:
+    src: apache_vhost.conf.j2
+    dest: /etc/apache2/sites-enabled/graphite.conf
+  notify: reload apache
+
+- name: Sync graphite database
+  command: graphite-manage syncdb --noinput
+  notify: reload apache
+
+- name: Make user _graphite the owner of graphite database
+  file:
+    path: /var/lib/graphite/graphite.db
+    owner: _graphite
+    group: _graphite
+  notify: reload apache
+
+- name: Copy graphite config file
+  template:
+    src: local_settings.py.j2
+    dest: /etc/graphite/local_settings.py
+  notify: reload apache
