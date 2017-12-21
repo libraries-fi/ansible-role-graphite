@@ -1,3 +1,5 @@
 graphite_port: 8080
 graphite_vhost_ip: 127.0.0.1
 graphite_timezone: UTC
+graphite_default_retention: 1m:1y
+graphite_carbon_retention: 1m:90d
