@@ -7,10 +7,8 @@ galaxy_info:
 dependencies:
   - role: ajsalminen.apt_source
     apt_source_config:
-      - source: deb http://ftp.se.debian.org/debian/ jessie main
-        key:
-          url: http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x75DDC3C4A499F1A18CB5F3C8CBF8D6FD518E17E1
-          id: 75DDC3C4A499F1A18CB5F3C8CBF8D6FD518E17E1
+      - source: deb http://ftp.funet.fi/pub/linux/mirrors/debian stretch-backports main
         packages:
-          - pattern: 'graphite-web python-django python-django-common python-django-tagging'
-            priority: 1001
+        - pattern: 'graphite-web python-whisper'
+          priority: 1001
+    when: ansible_distribution == "Debian" and ansible_distribution_release == "stretch"

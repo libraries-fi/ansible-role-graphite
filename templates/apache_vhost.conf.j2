@@ -6,8 +6,16 @@ Listen {{ graphite_vhost_ip }}:{{ graphite_port }}
     WSGIImportScript /usr/share/graphite-web/graphite.wsgi process-group=_graphite application-group=%{GLOBAL}
     WSGIScriptAlias / /usr/share/graphite-web/graphite.wsgi
 
-    Alias /content/ /usr/share/graphite-web/static/
-    <Location "/content/">
-	SetHandler None
+    Alias /static/ /usr/share/graphite-web/static/
+    <Location "/static/">
+        SetHandler None
     </Location>
+
+    ErrorLog ${APACHE_LOG_DIR}/graphite-web_error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/graphite-web_access.log combined
 </VirtualHost>

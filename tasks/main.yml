@@ -13,7 +13,7 @@
   notify: reload apache
 
 - name: Sync graphite database
-  command: graphite-manage syncdb --noinput
+  command: graphite-manage migrate --run-syncdb --noinput
   notify: reload apache
 
 - name: Make user _graphite the owner of graphite database
